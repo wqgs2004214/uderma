@@ -3,41 +3,34 @@ package u.derma.model;
 public class WeixinUser {
     private String id;
 
-    private String name;
+    private String userid;
 
-    private Integer age;
+    private Integer lotterynumber;
 
-    private String address;
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	public String getUserid() {
+		return userid;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public Integer getLotterynumber() {
+		return lotterynumber;
+	}
 
-    public Integer getAge() {
-        return age;
-    }
+	public void setLotterynumber(Integer lotterynumber) {
+		this.lotterynumber = lotterynumber;
+	}
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
 }

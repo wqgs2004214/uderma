@@ -8,7 +8,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <mvc:view-controller path="/" view-name="views/index"/>
     <mvc:annotation-driven />
-	<context:component-scan base-package="rml.controller" />
+	<context:component-scan base-package="u.derma.controller" />
 
 	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 		<property name="supportedMediaTypes">

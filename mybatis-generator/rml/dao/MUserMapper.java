@@ -1,7 +1,5 @@
 package rml.dao;
 
-import java.util.List;
-
 import rml.model.MUser;
 
 public interface MUserMapper {
@@ -16,6 +14,4 @@ public interface MUserMapper {
     int updateByPrimaryKeySelective(MUser record);
 
     int updateByPrimaryKey(MUser record);
-    
-    List<MUser> getAll();
 }

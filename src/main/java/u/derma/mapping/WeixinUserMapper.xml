@@ -1,86 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="rml.dao.MUserMapper" >
-  <resultMap id="BaseResultMap" type="rml.model.MUser" >
-    <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="NAME" property="name" jdbcType="VARCHAR" />
-    <result column="AGE" property="age" jdbcType="DECIMAL" />
-    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+<mapper namespace="u.derma.dao.WeixinUserMapper" >
+  <resultMap id="WeixinUser" type="u.derma.model.WeixinUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="lotterynumber" property="lotterynumber" jdbcType="DECIMAL" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    ID, NAME, AGE, ADDRESS
+  <sql id="weixinuser_Column_List" >
+    id, userid, lotterynumber
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  
+  <select id="selectByUserid" resultMap="WeixinUser" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from muser
-    where ID = #{id,jdbcType=VARCHAR}
+    <include refid="weixinuser_Column_List" />
+    from weixin_user
+    where userid = #{userid,jdbcType=VARCHAR}
   </select>
+ 
+ <!--  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from muser
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="rml.model.MUser" >
-    insert into muser (ID, NAME, AGE, 
-      ADDRESS)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, 
-      #{address,jdbcType=VARCHAR})
+ -->
+  
+  <!-- 插入新的用户 -->
+  <insert id="insert" parameterType="u.derma.model.WeixinUser" >
+    insert into weixin_user (id, userid, lotterynumber)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{lotterynumber,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="rml.model.MUser" >
-    insert into muser
+  
+  <!-- 插入指定数据 -->
+  <!-- 
+  <insert id="insertSelective" parameterType="u.derma.model.WeixinUser" >
+    insert into weixin_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        ID,
+        id,
       </if>
-      <if test="name != null" >
-        NAME,
+      <if test="userid != null" >
+        userid,
       </if>
-      <if test="age != null" >
-        AGE,
-      </if>
-      <if test="address != null" >
-        ADDRESS,
+      <if test="lotterynumber != null" >
+        lotterynumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="userid != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="age != null" >
+      <if test="lotterynumber != null" >
         #{age,jdbcType=DECIMAL},
       </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
     </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="rml.model.MUser" >
-    update muser
-    <set >
-      <if test="name != null" >
-        NAME = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null" >
-        AGE = #{age,jdbcType=DECIMAL},
-      </if>
-      <if test="address != null" >
-        ADDRESS = #{address,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=VARCHAR}
+  </insert> 
+  -->
+  
+  <!-- 增加指定用户抽奖次数 -->
+  <update id="addLotteryNumber" parameterType="java.lang.String" >
+    update weixin_user set lotterynumber = lotterynumber+1
+	    where userid = #{userid,jdbcType=VARCHAR}
   </update>
+  <!-- 
   <update id="updateByPrimaryKey" parameterType="rml.model.MUser" >
     update muser
     set NAME = #{name,jdbcType=VARCHAR},
       AGE = #{age,jdbcType=DECIMAL},
       ADDRESS = #{address,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
-  </update>
+  </update> 
+  -->
   
-  <select id="getAll" resultMap="BaseResultMap">
-	select ID, NAME, AGE, ADDRESS from muser
+  <select id="getAll" resultMap="WeixinUser">
+	select id, userid, lotterynumber from weixin_user
   </select>
 </mapper>

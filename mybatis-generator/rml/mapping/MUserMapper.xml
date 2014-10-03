@@ -13,21 +13,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from muser
+    from MUSER
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from muser
+    delete from MUSER
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="rml.model.MUser" >
-    insert into muser (ID, NAME, AGE, 
+    insert into MUSER (ID, NAME, AGE, 
       ADDRESS)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, 
       #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="rml.model.MUser" >
-    insert into muser
+    insert into MUSER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -58,7 +58,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="rml.model.MUser" >
-    update muser
+    update MUSER
     <set >
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
@@ -73,14 +73,10 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="rml.model.MUser" >
-    update muser
+    update MUSER
     set NAME = #{name,jdbcType=VARCHAR},
       AGE = #{age,jdbcType=DECIMAL},
       ADDRESS = #{address,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  
-  <select id="getAll" resultMap="BaseResultMap">
-	select ID, NAME, AGE, ADDRESS from muser
-  </select>
 </mapper>

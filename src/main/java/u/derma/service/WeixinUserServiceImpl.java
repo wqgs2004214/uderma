@@ -5,51 +5,39 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rml.dao.MUserMapper;
-import rml.model.MUser;
+import u.derma.dao.WeixinUserMapper;
+import u.derma.model.WeixinUser;
 
-@Service("muserService")
+@Service("weixinUserService")
 public class WeixinUserServiceImpl implements WeixinUserServiceI{
-
-	private MUserMapper muserMapper;
-		
-	public MUserMapper getMuserMapper() {
-		return muserMapper;
-	}
-
+	
 	@Autowired
-	public void setMuserMapper(MUserMapper muserMapper) {
-		this.muserMapper = muserMapper;
-	}
+	private WeixinUserMapper weixinUserMapper;
 	
+//	public WeixinUserMapper getWeixinUserMapper() {
+//		return weixinUserMapper;
+//	}
+//	
+//	public void setWeixinUserMapper(WeixinUserMapper weixinUserMapper) {
+//		this.weixinUserMapper = weixinUserMapper;
+//	}
 	@Override
-	public List<MUser> getAll() {
-		
-		return muserMapper.getAll();
+	public List<WeixinUser> getAll() {
+		return weixinUserMapper.getAll();
+	}
+	@Override
+	public int addLotteryNumber(String userid) {
+		return weixinUserMapper.addLotteryNumber(userid);
+	}
+	@Override
+	public int insert(WeixinUser user) {
+		return weixinUserMapper.insert(user);
+	}
+	@Override
+	public WeixinUser selectByUserid(String userid) {
+		return weixinUserMapper.selectByUserid(userid);
 	}
 
-	@Override
-	public int insert(MUser muser) {
-		
-		return muserMapper.insert(muser);
-	}
-
-	@Override
-	public int update(MUser muser) {
-		
-		return muserMapper.updateByPrimaryKey(muser);
-	}
-
-	@Override
-	public int delete(String id) {
 	
-		return muserMapper.deleteByPrimaryKey(id);
-	}
-
-	@Override
-	public MUser selectByPrimaryKey(String id) {
-		
-		return muserMapper.selectByPrimaryKey(id);
-	}
 
 }

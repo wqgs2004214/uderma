@@ -2,20 +2,36 @@ package u.derma.dao;
 
 import java.util.List;
 
-import rml.model.MUser;
+import u.derma.model.WeixinUser;
+
 
 public interface WeixinUserMapper {
-    int deleteByPrimaryKey(String id);
-
-    int insert(MUser record);
-
-    int insertSelective(MUser record);
-
-    MUser selectByPrimaryKey(String id);
-
-    int updateByPrimaryKeySelective(MUser record);
-
-    int updateByPrimaryKey(MUser record);
+	/**
+	 * 插入微信用户
+	 * @param user
+	 * @return
+	 */
+    int insert(WeixinUser user);
+    /**
+     * 每次增加指定用户的抽奖数
+     * @param userid
+     * @return
+     */
+    int addLotteryNumber(String userid);
     
-    List<MUser> getAll();
+    /**
+     * 通过用户id查询
+     * @param userid
+     * @return
+     */
+    WeixinUser selectByUserid(String userid);
+    /**
+     * 获取所有用户
+     * @return
+     */
+    List<WeixinUser> getAll();
+    
+    
+    
+    
 }

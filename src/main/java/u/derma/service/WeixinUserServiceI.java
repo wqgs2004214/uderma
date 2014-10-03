@@ -2,17 +2,16 @@ package u.derma.service;
 
 import java.util.List;
 
-import rml.model.MUser;
+import u.derma.model.WeixinUser;
+
 
 public interface WeixinUserServiceI {
 
-	List<MUser> getAll();
+	List<WeixinUser> getAll();
 	
-	MUser selectByPrimaryKey(String id);
+	int addLotteryNumber(String userid);
 	
-    int insert(MUser muser);
-    
-    int update(MUser muser);
-    
-    int delete(String id);
+	int insert(WeixinUser user);
+	
+	WeixinUser selectByUserid(String userid);
 }
