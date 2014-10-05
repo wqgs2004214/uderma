@@ -8,8 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import u.derma.model.WeixinGoods;
+import u.derma.model.WeixinPrizeInfo;
 import u.derma.model.WeixinUser;
 import u.derma.service.WeixinGoodsServiceI;
+import u.derma.service.WeixinPrizeInfoServiceI;
 import u.derma.service.WeixinUserServiceI;
 
 import com.alibaba.fastjson.JSON;
@@ -24,11 +26,17 @@ public class TestMybatis {
 	private WeixinGoodsServiceI weixinGoodsService;
 	//private WeixinUserServiceI weixinUserService;
 	
+	@Autowired
+	private WeixinPrizeInfoServiceI weixinPrizeInfoService;
+	
 	@Test
 	public void test1() {
 		List<WeixinGoods> list = weixinGoodsService.getAll();
 		//List<WeixinUser> list = weixinUserService.getAll();
 		logger.info(JSON.toJSONStringWithDateFormat(list, "yyyy-MM-dd HH:mm:ss"));
+		
+		List<WeixinPrizeInfo> list1 = weixinPrizeInfoService.getAll();
+		logger.info(JSON.toJSONStringWithDateFormat(list1, "yyyy-MM-dd HH:mm:ss"));
 	}
 	
 //	//@Test

@@ -30,6 +30,8 @@
   
   <!-- 获取所有的中奖信息 -->
   <select id="getAll" resultMap="WeixinPrizeInfo">
-	select prizeGoodsId, prizeAlias from weixin_prize_info
+	select 
+	<include refid="weixinprizeinfo_Column_List" />
+	 from weixin_prize_info
   </select>
 </mapper>
