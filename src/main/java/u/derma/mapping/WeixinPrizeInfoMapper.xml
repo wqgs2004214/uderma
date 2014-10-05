@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="u.derma.dao.WeixinPrizeInfoMapper" >
+  <resultMap id="WeixinPrizeInfo" type="u.derma.model.WeixinPrizeInfo">
+    <id column="prizeGoodsId" property="prizeGoodsId" jdbcType="DECIMAL" />
+    <result column="winnerNickname" property="winnerNickname" jdbcType="VARCHAR" />
+    <result column="prizeGoodsStatus" property="prizeGoodsStatus" jdbcType="DECIMAL" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="winningTime" property="winningTime" jdbcType="DATE" />
+    
+  </resultMap>
+  <sql id="weixinprizeinfo_Column_List" >
+    prizeGoodsId, winnerNickname,prizeGoodsStatus,userid,winningTime
+  </sql>
+  
+  <!-- 通过用户id获取中奖信息 -->
+  <select id="selectByUserid" resultMap="WeixinPrizeInfo" parameterType="java.lang.String" >
+    select 
+    <include refid="weixinprizeinfo_Column_List" />
+    from weixin_prize_info
+    where userid = #{userid,jdbcType=DECIMAL}
+  </select>
+ 
+  
+  <!-- 插入新的中奖信息 -->
+  <insert id="insert" parameterType="u.derma.model.WeixinPrizeInfo" >
+    insert into weixin_prize_info
+    values (#{prizeGoodsId,jdbcType=DECIMAL}, #{winnerNickname,jdbcType=VARCHAR}, #{prizeGoodsStatus,jdbcType=DECIMAL}, #{userid,jdbcType=VARCHAR}, #{winningTime,jdbcType=Date})
+  </insert>
+  
+  <!-- 获取所有的中奖信息 -->
+  <select id="getAll" resultMap="WeixinPrizeInfo">
+	select prizeGoodsId, prizeAlias from weixin_prize_info
+  </select>
+</mapper>
