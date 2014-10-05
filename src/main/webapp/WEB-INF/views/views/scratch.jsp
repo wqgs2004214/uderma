@@ -88,7 +88,7 @@
         <p class="show-p-h">分享到【朋友圈】增加刮奖次数</p>
         <p>好友点击1次，就能增加1次刮奖机会！</p>
     </div>
-    <div class="fx-btn"><a href="javascript:void(0)" onclick="javascript:closePopup('wx-gcard-zero2')"><img src="/asdwx/view/promo/scratch/images/wx-gcard-sure.png" width="100%" /></a></div>
+    <div class="fx-btn"><a href="javascript:void(0)" onclick="javascript:closePopup('wx-gcard-zero2')"><img src="<c:url value="/resources/images/wx-gcard-sure.png" />" width="100%" /></a></div>
 </div>
 
 <div class="wx-gcard-one">
@@ -184,6 +184,7 @@ function getByClass(oParent, sClass)
 }
 
 function pickupMyPrize(goodsId){
+	//我要领奖
     var url = "/asdwx/promotion/pickup.do";
     $("#goods"+goodsId).html("领取中...");
     var param = {
@@ -259,6 +260,7 @@ function pickupMyPrize(goodsId){
 }
 
 $("#prizeWinnerShow").click(function(){
+	//获取获奖用户列表
     var activityId =  Lottery.getActivityId();
     var url = "/asdwx/promotion/getUserBasicInof.do";
 	    var param = {

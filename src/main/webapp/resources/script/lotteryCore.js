@@ -85,6 +85,7 @@ var Lottery = (function(){
     }
 
     function getWinningList(){
+    	//是否中奖
         var url="/asdwx/promotion/getUsrPriList.do";
         var param;
             $.post(url,param,function(data){
