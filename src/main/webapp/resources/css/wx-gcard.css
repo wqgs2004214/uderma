@@ -1,0 +1,495 @@
+@charset "utf-8";
+/* CSS Document */
+
+body, div, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, iframe, input, textarea, select, label, article, aside, footer, header, menu, nav, section, time, audio, video {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 640px;
+}
+
+body {
+    font-size: 100%;
+    font-family: Helvetica, STHeiti, Droid Sans Fallback;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+textarea {
+    resize: none;
+}
+
+iframe, img {
+    border: 0;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+input,
+select,
+textarea {
+    outline: 0;
+    -webkit-user-modify: read-write-plaintext-only;
+}
+
+input {
+    -webkit-appearance: none;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background: #f9f1cd;
+}
+
+.wx-gcard-banner {
+    width: 100%;
+}
+
+.wx-gcard-bg {
+    width: 100%;
+    margin-top: -4px;
+    position: relative;
+}
+
+.wx-gcard-box {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+.wx-gcard-box .ui-gcard-luck {
+    width: 85%;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 20px;
+
+}
+
+.wx-gcard-box .ui-gcard-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-box .ui-gcard-text {
+    width: 85%;
+    margin: 0 auto;
+    line-height: 35px;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #333333;
+}
+
+.wx-gcard-box .ui-gcard-text .ui-gcard-a {
+    color: #00a0e9;
+    text-decoration: underline;
+    float: left;
+}
+
+.wx-gcard-box .ui-gcard-text .ui-gcard-s {
+    float: right;
+}
+
+.wx-gcard-box .ui-gcard-menu {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-box .ui-gcard-menu .ui-gcard-ul {
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #345b04;
+    overflow: hidden;
+}
+
+.wx-gcard-box .ui-gcard-menu .ui-gcard-ul li {
+    width: 33%;
+    height: 35px;
+    background: #dfdfdf;
+    border-radius: .3em;
+    -webkit-border-radius: .3em;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    color: #5f2400;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    margin-left: 0;
+}
+
+.wx-gcard-box .ui-gcard-menu .ui-gcard-ul li.active {
+    background: #90ba21;
+    color: #fffc8b;
+}
+
+.wx-gcard-box .ui-gcard-tab {
+    width: 85%;
+    margin: 0 auto;
+    font-family: "微软雅黑";
+    font-size: .8em;
+    color: #666;
+    display: none;
+}
+
+.wx-gcard-box .ui-gcard-tab .ui-luck-user {
+    width: 96%;
+    height: 30px;
+    border-bottom: 1px dotted #666666;
+    line-height: 30px;
+    padding: 4px 0;
+    margin: 0 auto;
+}
+
+.wx-gcard-box .ui-gcard-tab .ui-luck-user .user-head {
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.wx-gcard-box .ui-gcard-tab .ui-luck-user .user-name {
+    float: left;
+    display: block;
+    margin-left: 10px;
+    color: #333333;
+}
+
+.wx-gcard-box .ui-gcard-tab .ui-luck-user .luck-goods {
+    float: right;
+    display: block;
+}
+
+.wx-gcard-box .ui-gcard-tab .ui-luck-btn {
+    color: #f18d00;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.wx-gcard-tc {
+    width: 100%;
+    background: #000;
+    filter: alpha(opacity:60);
+    opacity: 0.6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 500px;
+    display: none;
+}
+
+
+
+.wx-gcard-zero {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.wx-gcard-zero .wx-gcard-up {
+    width: 100%;
+}
+
+.wx-gcard-zero .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-zero .show-box .show-p-h {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f18d00;
+    padding-bottom: 5px;
+}
+
+.wx-gcard-zero .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+
+
+.wx-gcard-zero2 {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.wx-gcard-zero2 .wx-gcard-up {
+    width: 100%;
+}
+
+.wx-gcard-zero2 .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-zero2 .show-box .show-p-h {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f18d00;
+    padding-bottom: 5px;
+}
+
+.wx-gcard-zero2 .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+
+
+.wx-gcard-one {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.wx-gcard-one .wx-gcard-up {
+    width: 100%;
+}
+
+.wx-gcard-one .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-one .show-box .show-p-h {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f18d00;
+    padding-bottom: 5px;
+}
+
+.wx-gcard-one .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-two {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    display: none;
+    margin-top: -100px;
+}
+
+.wx-gcard-two .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-two .show-box .infomation-text {
+    width: 96%;
+    margin: 0 auto;
+    border-bottom: 1px dotted #666666;
+    line-height: 35px;
+    color: #f18d00;
+    font-weight: bold;
+    text-align: left;
+}
+
+.wx-gcard-two .show-box .infomation-box {
+    width: 96%;
+    margin: 0 auto;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.wx-gcard-two .show-box .infomation-box input {
+    width: 60%;
+    height: 33px;
+    border: 1px solid #dfdfdf;
+    outline: none;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #666;
+    padding: 0 5px;
+    border-radius: .6em;
+    -webkit-border-radius: .6em;
+    line-height: 33px;
+    margin-left: 10px;
+}
+
+.wx-gcard-two .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-three {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    display: none;
+    margin-top: -74px;
+}
+
+.wx-gcard-three .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-three .show-box .show-p-h {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f18d00;
+    padding-bottom: 5px;
+}
+
+.wx-gcard-three .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-four {
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    display: none;
+    margin-top: -74px;
+}
+
+.wx-gcard-four .show-box {
+    width: 85%;
+    margin: 0 auto;
+    background: #FFF;
+    border: 1px solid #f0af6d;
+    overflow: auto;
+    text-align: center;
+    padding: 10px 0;
+    font-family: "微软雅黑";
+    font-size: 1em;
+    color: #000;
+}
+
+.wx-gcard-four .show-box .show-p-h {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f18d00;
+    padding-bottom: 5px;
+}
+
+.wx-gcard-four .fx-btn {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.wx-gcard-btn {
+    display: inline-block;
+    background: #FFE102;
+    width: 100%;
+    height: 55px;
+    border-bottom: 2px solid #f49c00;
+    color: #e83f19;
+    text-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-size: 34px;
+    line-height: 55px;
+    border-radius: 8px;
+    /*margin-top: 10px;*/
+    font-weight: 900;
+    font-family: '微软雅黑';
+}
+
+.wx-gcard-btn:active {
+    display: inline-block;
+    opacity: 0.9;
+    height: 55px;
+    border-bottom-width: 1px;
+    line-height: 55px;
+}
+
+
+.wx-gcard-btn-followme {
+    margin-top:20px;
+    display: inline-block;
+    background: #FFE102;
+    width: 70%;
+    height: 35px;
+    border-bottom: 2px solid #f49c00;
+    color: #e83f19;
+    text-shadow: inset 0 0 2px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-size: 14px;
+    line-height: 35px;
+    border-radius: 8px;
+    /*margin-top: 10px;*/
+    font-family: '微软雅黑';
+}
+
+.wx-gcard-btn-followme:active {
+    display: inline-block;
+    opacity: 0.9;
+    height: 35px;
+    border-bottom-width: 1px;
+    line-height: 35px;
+}
