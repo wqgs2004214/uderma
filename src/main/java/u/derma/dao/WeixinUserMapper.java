@@ -20,6 +20,13 @@ public interface WeixinUserMapper {
     int addLotteryNumber(String userid);
     
     /**
+     * 减少指定用户的抽奖数 
+     * @param userid
+     * @return
+     */
+    int minusLotteryNumber(String userid);
+    
+    /**
      * 通过用户id查询
      * @param userid
      * @return

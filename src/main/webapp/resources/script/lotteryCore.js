@@ -9,10 +9,11 @@ var Lottery = (function(){
     }
 
     function init(){
-        var url = "/asdwx/promotion/init.do";
+        var url = "init";
         var param="";
 
         $.post(url,param,function(data){
+        	//"{"activityId":"134","isFollow":"no","inviteCode":"54b49bb465f16e762065aa99efebdbf4","chance":"2"}"
             var result = JSON.parse(data);
             activityId = result.activityId;
             isFollow = result.isFollow;
@@ -40,12 +41,12 @@ var Lottery = (function(){
             //弹出窗口告诉用户没有机会了，分享后可以增加机会！
         }
 
-        var url = "/asdwx/promotion/play.do";
+        var url = "play";
         var param="";
         $.post(url, param, function(data){
             var result = JSON.parse(data);
+            //更新中奖信息到挂彩区域
             $('#gua1').wScratchPad('update',result.prizeDesc);
-            //更新中奖信息
             var msg = '';
             if(result.prizeDesc=='呃！再刮一次吧~'){
                 msg+=[
@@ -139,7 +140,7 @@ var Lottery = (function(){
     }
 
     function getInviteCode(){
-        var url = "/asdwx/promotion/getInviteCode.do";
+        var url = "getid";
         var param = "";
         if(playerInviteCode==undefined){
             $.post(url, param, function(data){

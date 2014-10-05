@@ -7,11 +7,18 @@ import u.derma.model.WeixinUser;
 
 public interface WeixinUserServiceI {
 
+	String getAccessToken();
+	
+	int getExpires();
+	
 	List<WeixinUser> getAll();
 	
 	int addLotteryNumber(String userid);
 	
+	int minusLotteryNumber(String userid);
+	
 	int insert(WeixinUser user);
 	
 	WeixinUser selectByUserid(String userid);
+	
 }

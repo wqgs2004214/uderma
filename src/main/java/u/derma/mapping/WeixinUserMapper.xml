@@ -58,6 +58,11 @@
     </trim>
   </insert> 
   -->
+  <!-- 减少指定用户抽奖次数 -->
+  <update id="minusLotteryNumber" parameterType="java.lang.String">
+  	update weixin_user set lotterynumber = lotterynumber-1
+	    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
   
   <!-- 增加指定用户抽奖次数 -->
   <update id="addLotteryNumber" parameterType="java.lang.String" >
