@@ -1,9 +1,9 @@
 package u.derma.model;
 
 public class WeixinUser {
-    private String id;
+    private String id = "";
 
-    private String userid;
+    private String userid = "";
 
     private Integer lotterynumber;
 

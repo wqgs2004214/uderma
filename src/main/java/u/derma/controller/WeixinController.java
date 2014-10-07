@@ -1,25 +1,27 @@
 package u.derma.controller;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-
 import u.derma.model.LotteryEntity;
+import u.derma.model.WeixinGoods;
+import u.derma.model.WeixinPrizeInfo;
 import u.derma.model.WeixinUser;
+import u.derma.service.WeixinGoodsServiceI;
+import u.derma.service.WeixinPrizeInfoServiceI;
 import u.derma.service.WeixinUserServiceI;
 import u.derma.utils.Configs;
 import u.derma.utils.HttpUtils;
@@ -28,10 +30,15 @@ import u.derma.utils.HttpUtils;
 @RequestMapping("/")
 public class WeixinController {
 	private final Logger log = Logger.getLogger(WeixinController.class);
-
+	private final Configs configs = Configs.getInstance();
 	@Autowired
 	private WeixinUserServiceI weixinUserService;
-
+	
+	@Autowired
+	private WeixinGoodsServiceI weixinGoodsService;
+	
+	@Autowired
+	private WeixinPrizeInfoServiceI weixinPrizeInfoService;
 	/**
 	 * 微信回调接口
 	 * 
@@ -67,23 +74,24 @@ public class WeixinController {
 	@RequestMapping(value = "view", method = RequestMethod.GET)
 	public String viewPage(@RequestParam String code, Model model, HttpSession session) {
 		log.debug("阅读原文!");
-		String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+Configs.getInstance().getString("AppId")+"&secret="+Configs.getInstance().getString("AppSecret")+"&code=" +code+ "&grant_type=authorization_code";
+		String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+configs.getString("AppId")+"&secret="+configs.getString("AppSecret")+"&code=" +code+ "&grant_type=authorization_code";
 		log.debug("request openid url:" + getOpenIdUrl);
 		String result = HttpUtils.request(getOpenIdUrl);
 		log.debug("通过网页授权返回数据:" + result);
-		//String userid = ((JSONObject)JSON.parse(result)).getString("appid");
-		String userid = "gushuai";
-		WeixinUser user = weixinUserService.selectByUserid(userid);
-		if (user == null) {
-			// 记录新的抽奖用户
-			user = new WeixinUser();
-			user.setId(UUID.randomUUID().toString());
-			user.setUserid(userid);
-			user.setLotterynumber(10);
-			weixinUserService.insert(user);
+		String userid = ((JSONObject)JSON.parse(result)).getString("openid");
+		if (userid != null) {
+			WeixinUser user = weixinUserService.selectByUserid(userid);
+			if (user == null) {
+				// 记录新的抽奖用户
+				user = new WeixinUser();
+				user.setId(UUID.randomUUID().toString());
+				user.setUserid(userid);
+				user.setLotterynumber(10);
+				weixinUserService.insert(user);
+			}
+			model.addAttribute("user", user);
+			session.setAttribute("userid", userid);
 		}
-		model.addAttribute("user", user);
-		session.setAttribute("userid", userid);
 		return "views/scratch";
 	}
 
@@ -97,19 +105,18 @@ public class WeixinController {
 	@RequestMapping(value = "init", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String init(HttpSession session) {
 		String url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="
-				+ weixinUserService.getAccessToken() + "&next_openid=" + session.getAttribute("userid");
+				+ configs.getAccessToken() + "&next_openid=" + session.getAttribute("userid");
 		String result = HttpUtils.request(url);
 		JSONObject jsonObject = (JSONObject)JSON.parse(result);
 		//获取拉取到得openid个数
-		//int count = jsonObject.getIntValue("count");
-		int count = 1;
+		int count = jsonObject.getIntValue("count");
 		LotteryEntity lotteryEntity = new LotteryEntity();
 		if (count > 0) {
 			WeixinUser user = weixinUserService.selectByUserid((String)session.getAttribute("userid"));
 			lotteryEntity.setChance(user.getLotterynumber());
 			lotteryEntity.setActivityId(user.getUserid());
-			lotteryEntity.setIsFollow("YES");
-			lotteryEntity.setPlayerInviteCode("123");
+			lotteryEntity.setIsFollow("yes");
+			lotteryEntity.setPlayerInviteCode(user.getUserid());
 		}
 		return lotteryEntity.toString();
 	}
@@ -126,15 +133,47 @@ public class WeixinController {
 		log.debug("调用开始抽奖动作");
 		return weixinUserService.minusLotteryNumber(userid);
 	}
-
+	
+	/**
+	 * 开始抽奖
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="play", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String play(HttpSession session) {
 		String userid = (String)session.getAttribute("userid");
 		weixinUserService.minusLotteryNumber(userid);
-		return "{\"prizeDesc\":\"抽中了IPAD\"}";	
+		long randNum = Math.round(Math.random() * 40 +1);
+		List<WeixinGoods> goodsList = weixinGoodsService.getAll();
+		int count = goodsList.size();
+		String prizeAlias = "呃！再刮一次吧~"; 
+		for (int i=0; i<count ;i++) {
+			if (randNum >=(i*10+1) && randNum <= (i*10 + 10)) {
+				//中奖保存用户中奖信息
+				prizeAlias = goodsList.get(i).getPrizeAlias();
+				WeixinPrizeInfo info = new WeixinPrizeInfo();
+				info.setPrizeGoodsId(goodsList.get(i).getPrizeGoodsId());
+				info.setPrizeGoodsStatus(1);
+				info.setUserid(userid);
+				//获取用户基本信息
+				String getUserinfoUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+ configs.getAccessToken() +"&openid=" +userid+ "&lang=zh_CN";
+				String result = HttpUtils.request(getUserinfoUrl);
+				JSONObject obj = (JSONObject)JSON.parse(result);
+				String nickname = obj.getString("nickname");
+				info.setWinnerNickname(nickname);
+				info.setWinningTime(new Date());
+				weixinPrizeInfoService.insert(info);
+				break;
+			}
+		}
+		return "{\"prizeDesc\":\"" + prizeAlias + "\"}";
 	}
 	
-	
+	/**
+	 * 获取用户openid,对应微信openid
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="getid", method = RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public @ResponseBody String getID(HttpSession session) {
 		String userid = (String)session.getAttribute("userid");
@@ -143,21 +182,23 @@ public class WeixinController {
 	
 	
 	/**
-	 * 浏览指定用户分享页面
+	 * 浏览指定用户分享页面,包括分享中奖信息
 	 * 
-	 * @param sharedId
-	 * @param userid
+	 * @param state 共享此页面的userid
+	 * @param userid 浏览次页面的userid
 	 * @param model
+	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "viewShare", method = RequestMethod.GET)
-	public String viewShare(@RequestParam String sharedId,
-			@RequestParam String userid, Model model) {
+	public String viewShare(@RequestParam String state,
+			@RequestParam String code, Model model, HttpSession session) {
 		log.debug("浏览分享页面");
 		// 如果页面被浏览则给分享用户增加一次抽奖机会
-		weixinUserService.addLotteryNumber(sharedId);
-		//return viewPage(userid, model);
-		return "";
+		weixinUserService.addLotteryNumber(state);
+		return viewPage(code, model, session);
+		
 	}
 
+	
 }

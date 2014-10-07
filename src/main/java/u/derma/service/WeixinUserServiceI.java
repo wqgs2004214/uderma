@@ -7,10 +7,6 @@ import u.derma.model.WeixinUser;
 
 public interface WeixinUserServiceI {
 
-	String getAccessToken();
-	
-	int getExpires();
-	
 	List<WeixinUser> getAll();
 	
 	int addLotteryNumber(String userid);

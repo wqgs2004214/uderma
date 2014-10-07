@@ -370,12 +370,12 @@ $("#control-button").bind("click",function(){
 
 var imgUrl = 'http://wx.aisidi.com:80/asdwx/view/promo/scratch/images/share-icon.jpg';
 
-var lineLinkPrefix = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8cbf7e0e11903570&redirect_uri=http%3A%2F%2Fwx.aisidi.com%2Fasdwx%2Fpromotion%2Finvite.do&response_type=CODE&scope=snsapi_base&state=';
+var lineLinkPrefix = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx28d1b2def70df706&redirect_uri=http%3A%2F%2Fpush3gtest.smt-online.net%2Fuderma%2FviewShare&response_type=CODE&scope=snsapi_base&state=';
 var lineLinkSuffix = '#wechat_redirect';
 var descContent = "疯狂派送！2000只小米手环，10万份国内通话！";
 var shareTitle = '一大波好福利，不要躲避！';
 
-var appid = 'wx8cbf7e0e11903570';
+var appid = 'wx28d1b2def70df706';
 
 function shareFriend() {
     var inviteCode = Lottery.getInviteCode();

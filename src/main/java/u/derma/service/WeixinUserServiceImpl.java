@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import sun.security.krb5.Config;
 import u.derma.dao.WeixinUserMapper;
 import u.derma.model.WeixinUser;
 import u.derma.utils.Configs;
@@ -23,41 +24,41 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 	private final Logger log = Logger.getLogger(WeixinUserServiceImpl.class);
 	@Autowired
 	private WeixinUserMapper weixinUserMapper;
-	private String accessToken;
-	private int expires;
+	
 
 	public WeixinUserServiceImpl() {
-		Executor exec = Executors.newSingleThreadExecutor();
-		exec.execute(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						request();
-						if (accessToken != null) {
-							log.debug("成功获取accessToken = " + accessToken
-									+ ",token过期时间:" + expires);
-							Thread.sleep((expires - 200) * 1000);
-						} else {
-							Thread.sleep(60 * 1000);
-						}
-					} catch (InterruptedException e) {
-						log.debug("", e);
-					}
-				}
-
-			}
-		});
+//		Executor exec = Executors.newSingleThreadExecutor();
+//		exec.execute(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				while (true) {
+//					try {
+//						request();
+//						if (Configs.getInstance().getAccessToken() != null) {
+//							log.debug("成功获取accessToken = " + Configs.getInstance().getAccessToken()
+//									+ ",token过期时间:" + Configs.getInstance().getExpires());
+//							Thread.sleep((Configs.getInstance().getExpires() - 200) * 1000);
+//						} else {
+//							Thread.sleep(60 * 1000);
+//						}
+//					} catch (InterruptedException e) {
+//						log.debug("", e);
+//					}
+//				}
+//
+//			}
+//		});
 	}
 
 	private void request() {
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Configs.getInstance().getString("AppId")+"&secret=" + Configs.getInstance().getString("AppSecret");
 		String result = HttpUtils.request(url);
+		log.debug("获取access_token response:" + result);
 		JSONObject jsonObj = (JSONObject) JSON.parse(result);
 		if (jsonObj.getString("errcode") == null) {
-			accessToken = jsonObj.getString("access_token");
-			expires = jsonObj.getIntValue("expires_in");
+			Configs.getInstance().setAccessToken(jsonObj.getString("access_token"));
+			Configs.getInstance().setExpires(jsonObj.getIntValue("expires_in"));
 		}
 	}
 
@@ -85,14 +86,6 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 		return weixinUserMapper.selectByUserid(userid);
 	}
 
-	@Override
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	@Override
-	public int getExpires() {
-		return expires;
-	}
+	
 
 }

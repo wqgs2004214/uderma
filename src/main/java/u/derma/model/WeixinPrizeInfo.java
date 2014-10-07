@@ -6,6 +6,7 @@ public class WeixinPrizeInfo {
 
 	private int prizeGoodsId;
 	private String winnerNickname;
+	//奖品状态2领取 1未领取
 	private int prizeGoodsStatus;
 	private String userid;
 	private Date winningTime;
