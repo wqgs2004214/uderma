@@ -26,7 +26,7 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 	private WeixinUserMapper weixinUserMapper;
 	
 
-	public WeixinUserServiceImpl() {
+//	public WeixinUserServiceImpl() {
 //		Executor exec = Executors.newSingleThreadExecutor();
 //		exec.execute(new Runnable() {
 //
@@ -49,7 +49,7 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 //
 //			}
 //		});
-	}
+//	}
 
 	private void request() {
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Configs.getInstance().getString("AppId")+"&secret=" + Configs.getInstance().getString("AppSecret");

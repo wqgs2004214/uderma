@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import u.derma.model.LotteryEntity;
 import u.derma.model.WeixinGoods;
 import u.derma.model.WeixinPrizeInfo;
@@ -51,7 +54,15 @@ public class WeixinController {
 		// 测试回调接口
 		return echostr;
 	}
-
+	
+	/**
+	 * 后台入口
+	 * @return
+	 */
+	@RequestMapping(value="index", method= RequestMethod.GET)
+	public String index() {
+		return "views/index";
+	}
 	/**
 	 * 阅读原文url地址
 	 * 
@@ -195,8 +206,29 @@ public class WeixinController {
 			@RequestParam String code, Model model, HttpSession session) {
 		log.debug("浏览分享页面");
 		// 如果页面被浏览则给分享用户增加一次抽奖机会
-		weixinUserService.addLotteryNumber(state);
-		return viewPage(code, model, session);
+		
+		String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+configs.getString("AppId")+"&secret="+configs.getString("AppSecret")+"&code=" +code+ "&grant_type=authorization_code";
+		String result = HttpUtils.request(getOpenIdUrl);
+		log.debug("分享网页授权返回数据:" + result);
+		String userid = ((JSONObject)JSON.parse(result)).getString("openid");
+		if (userid != null) {
+			WeixinUser user = weixinUserService.selectByUserid(userid);
+			if (user == null) {
+				// 记录新的抽奖用户
+				user = new WeixinUser();
+				user.setId(UUID.randomUUID().toString());
+				user.setUserid(userid);
+				user.setLotterynumber(10);
+				weixinUserService.insert(user);
+			}
+			//浏览用户不是分享用户可以增加一次抽奖机会
+			if (!StringUtils.equalsIgnoreCase(state, userid)) {
+				weixinUserService.addLotteryNumber(state);
+			}
+			model.addAttribute("user", user);
+			session.setAttribute("userid", userid);
+		}
+		return "views/scratch";
 		
 	}
 

@@ -34,6 +34,7 @@ public class Configs {
 								log.debug("成功获取accessToken = " + Configs.getInstance().getAccessToken()
 										+ ",token过期时间:" + Configs.getInstance().getExpires());
 								Thread.sleep((Configs.getInstance().getExpires() - 200) * 1000);
+								Thread.sleep(5000);
 							} else {
 								Thread.sleep(60 * 1000);
 							}
