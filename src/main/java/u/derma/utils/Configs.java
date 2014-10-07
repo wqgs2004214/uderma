@@ -29,7 +29,7 @@ public class Configs {
 				public void run() {
 					while (true) {
 						try {
-							request();
+							requestAccessToken();
 							if (Configs.getInstance().getAccessToken() != null) {
 								log.debug("成功获取accessToken = " + Configs.getInstance().getAccessToken()
 										+ ",token过期时间:" + Configs.getInstance().getExpires());
@@ -52,7 +52,10 @@ public class Configs {
 		}
 	}
 	
-	private void request() {
+	/**
+	 * 请求新的access_token
+	 */
+	public void requestAccessToken() {
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Configs.getInstance().getString("AppId")+"&secret=" + Configs.getInstance().getString("AppSecret");
 		String result = HttpUtils.request(url);
 		log.debug("获取access_token response:" + result);

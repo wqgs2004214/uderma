@@ -55,6 +55,10 @@ public class WeixinController {
 		return echostr;
 	}
 	
+	@RequestMapping(value="login", method = RequestMethod.GET)
+	public String login() {
+		return "views/login";
+	}
 	/**
 	 * 后台入口
 	 * @return
@@ -119,6 +123,11 @@ public class WeixinController {
 				+ configs.getAccessToken() + "&next_openid=" + session.getAttribute("userid");
 		String result = HttpUtils.request(url);
 		JSONObject jsonObject = (JSONObject)JSON.parse(result);
+		if (jsonObject.getString("errcode") == null) {
+			//需要重新获取access_token
+			Configs.getInstance().requestAccessToken();
+		}
+		
 		//获取拉取到得openid个数
 		int count = jsonObject.getIntValue("count");
 		LotteryEntity lotteryEntity = new LotteryEntity();
