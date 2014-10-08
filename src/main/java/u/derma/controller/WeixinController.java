@@ -65,9 +65,9 @@ public class WeixinController {
 	 * 后台入口
 	 * @return
 	 */
-	@RequestMapping(value="index", method= RequestMethod.GET)
+	@RequestMapping(value="home", method= RequestMethod.GET)
 	public String index() {
-		return "views/index";
+		return "index";
 	}
 	/**
 	 * 阅读原文url地址
