@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
@@ -21,6 +23,7 @@
 		<div class="wrapper">
 			<div class="content">
 				<div id="form_wrapper" class="form_wrapper">
+				
 					<form class="login active">
 						<h3>登录</h3>
 						<div>
@@ -29,13 +32,13 @@
 							<span class="error">This is an error</span>
 						</div>
 						<div>
-							<label>Password:</label>
-							<input type="密码" />
+							<label>密码:</label>
+							<input type="password" />
 							<span class="error">This is an error</span>
 						</div>
 						<div class="bottom">
 							<div class="remember"><input type="checkbox" /><span>记住密码</span></div>
-							<input type="登录" value="Login"></input>
+							<input type="submit" value="登录"></input>
 							<div class="clear"></div>
 						</div>
 					</form>
