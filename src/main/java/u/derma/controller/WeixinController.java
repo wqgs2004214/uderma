@@ -66,9 +66,15 @@ public class WeixinController {
 	 * @return
 	 */
 	@RequestMapping(value="home", method= RequestMethod.GET)
-	public String index() {
-		return "index";
+	public String index(HttpSession session) {
+		Object status = session.getAttribute("status");
+		if (status == null || !StringUtils.equalsIgnoreCase("1", status.toString())) {
+			return "redirect:/login";
+		}
+		return "home";
 	}
+	
+	
 	/**
 	 * 阅读原文url地址
 	 * 

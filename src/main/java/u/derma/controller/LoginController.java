@@ -1,5 +1,6 @@
 package u.derma.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,34 +25,40 @@ public class LoginController {
 	public void ajaxAttribute(WebRequest request, Model model) {
 		model.addAttribute("ajaxRequest", AjaxUtils.isAjaxRequest(request));
 	}
-	
+
 	@ModelAttribute("userBean")
 	public UserBean createUserBean() {
 		return new UserBean();
 	}
-	
-	@RequestMapping(method=RequestMethod.GET)
+
+	@RequestMapping(method = RequestMethod.GET)
 	public void login() {
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public String processSubmit(@Valid UserBean userBean, BindingResult result, @ModelAttribute("ajaxRequest") boolean ajaxRequest, Model model, RedirectAttributes redirectAttrs) {
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String processSubmit(@Valid UserBean userBean, BindingResult result,
+			@ModelAttribute("ajaxRequest") boolean ajaxRequest, Model model,
+			RedirectAttributes redirectAttrs, HttpSession session) {
 		if (result.hasErrors()) {
 			return "/login";
 		}
-		if (!StringUtils.equalsIgnoreCase(userBean.getName() ,"admin") || !StringUtils.equalsIgnoreCase(userBean.getPassword(), "123")) {
+		if (!StringUtils.equalsIgnoreCase(userBean.getName(), "admin")
+				|| !StringUtils.equalsIgnoreCase(userBean.getPassword(), "123")) {
 			redirectAttrs.addFlashAttribute("message", "用户名或密码错误.请重试");
 			return "/login";
 		}
-		// Typically you would save to a db and clear the "form" attribute from the session 
-		// via SessionStatus.setCompleted(). For the demo we leave it in the session.
-		//String message = "Form submitted successfully.  Bound " + userBean;
+		// Typically you would save to a db and clear the "form" attribute from
+		// the session
+		// via SessionStatus.setCompleted(). For the demo we leave it in the
+		// session.
+		// String message = "Form submitted successfully.  Bound " + userBean;
 		// Success response handling
-		//redirectAttrs.addFlashAttribute("message", message);
-		//return "/index";
+		// redirectAttrs.addFlashAttribute("message", message);
+		// return "/index";
+		session.setAttribute("status", "1");
 		String message = "登录成功";
 		redirectAttrs.addFlashAttribute("message", message);
-		return "redirect:/home";			
-		
+		return "redirect:/home";
+
 	}
 }
