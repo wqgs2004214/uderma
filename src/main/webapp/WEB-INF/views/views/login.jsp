@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page session="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
@@ -22,26 +23,48 @@
     <body>
 		<div class="wrapper">
 			<div class="content">
+			
 				<div id="form_wrapper" class="form_wrapper">
-				
-					<form class="login active">
+				<form:form id="login" method="post" modelAttribute="userBean" cssClass="login active">
 						<h3>登录</h3>
 						<div>
-							<label>用户名:</label>
-							<input type="text" />
-							<span class="error">This is an error</span>
+							<form:label path="name">
+		  					用户名:
+		 					</form:label>
+		 					<form:input path="name" />
+							<span class="error">
+								<form:errors path="name" />
+							</span>
 						</div>
 						<div>
-							<label>密码:</label>
-							<input type="password" />
-							<span class="error">This is an error</span>
+							<form:label path="password">
+		  					密码:
+		 					</form:label>
+		 					<form:password path="password" />
+							<span class="error">
+								<form:errors path="password" />
+							</span>
 						</div>
 						<div class="bottom">
 							<div class="remember"><input type="checkbox" /><span>记住密码</span></div>
-							<input type="submit" value="登录"></input>
+							<button type="submit">登录</button>
+							<!-- <input type="submit" value="登录"></input> -->
 							<div class="clear"></div>
 						</div>
-					</form>
+					</form:form>
+					
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#login").submit(function() {  
+								$.post($(this).attr("action"), $(this).serialize(), function(html) {
+									alert("1233");
+									//$("#formsContent").replaceWith(html);
+									//$('html, body').animate({ scrollTop: $("#message").offset().top }, 500);
+								});
+								return false;  
+							});			
+						});
+					</script>
 				</div>
 				<div class="clear"></div>
 			</div>
