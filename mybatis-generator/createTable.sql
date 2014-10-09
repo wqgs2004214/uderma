@@ -1,29 +1,27 @@
+--openid, lotterynumber, nickname, sex, city,country, province
 create table weixin_user(
-id varchar2(36) primary key,
-idcode varchar2(36),
-age number(8),
-address varchar2(36)
-);
-
-create table weixin_user(
-id varchar2(36) primary key,
-userid varchar2(36),
---用户名
-username varchar2(36),
---抽奖剩余次数
-lotterynumber number(8)
+openid varchar2(36) primary key,
+lotterynumber number(8),
+nickname varchar2(36),
+sex number(8),
+city varchar2(36),
+country varchar2(36),
+province varchar2(36),
+createDate Date
 );
 
 --中奖信息
 create table weixin_prize_info(
  --奖品Id
-  prizeGoodsId INTEGER,
+  id varchar2(36) primary key,
   --中奖用户
   winnerNickname varchar2(36),
   --奖品状态2领取 1未领取
   prizeGoodsStatus number(8),
+  --奖品名称
+  prizeGoodsName varchar2(36),
   --中奖用户ID
-  userid varchar2(36),
+  openid varchar2(36),
   --中奖时间
   winningTime Date
 );

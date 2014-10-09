@@ -11,8 +11,8 @@ public class WeixinPrizeInfoServiceImpl implements WeixinPrizeInfoServiceI {
 	@Autowired
 	private WeixinPrizeInfoMapper weixinPrizeInfoMapper;
 	@Override
-	public List<WeixinPrizeInfo> selectByUserid(String userid) {
-		return weixinPrizeInfoMapper.selectByUserid(userid);
+	public List<WeixinPrizeInfo> selectByOpenid(String openid) {
+		return weixinPrizeInfoMapper.selectByOpenid(openid);
 	}
 	@Override
 	public int insert(WeixinPrizeInfo info) {

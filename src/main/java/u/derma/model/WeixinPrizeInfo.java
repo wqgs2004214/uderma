@@ -3,20 +3,23 @@ package u.derma.model;
 import java.util.Date;
 
 public class WeixinPrizeInfo {
-
-	private int prizeGoodsId;
+	//礼品id
+	private String id;
 	private String winnerNickname;
 	//奖品状态2领取 1未领取
 	private int prizeGoodsStatus;
+	//礼品名
 	private String prizeGoodsName;
-	private String userid;
+	//中奖用户id
+	private String openid;
 	private Date winningTime;
 	
-	public int getPrizeGoodsId() {
-		return prizeGoodsId;
+	
+	public String getId() {
+		return id;
 	}
-	public void setPrizeGoodsId(int prizeGoodsId) {
-		this.prizeGoodsId = prizeGoodsId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getWinnerNickname() {
 		return winnerNickname;
@@ -30,11 +33,12 @@ public class WeixinPrizeInfo {
 	public void setPrizeGoodsStatus(int prizeGoodsStatus) {
 		this.prizeGoodsStatus = prizeGoodsStatus;
 	}
-	public String getUserid() {
-		return userid;
+	
+	public String getOpenid() {
+		return openid;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public Date getWinningTime() {
 		return winningTime;

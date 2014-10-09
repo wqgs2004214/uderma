@@ -26,54 +26,18 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 	private WeixinUserMapper weixinUserMapper;
 	
 
-//	public WeixinUserServiceImpl() {
-//		Executor exec = Executors.newSingleThreadExecutor();
-//		exec.execute(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				while (true) {
-//					try {
-//						request();
-//						if (Configs.getInstance().getAccessToken() != null) {
-//							log.debug("成功获取accessToken = " + Configs.getInstance().getAccessToken()
-//									+ ",token过期时间:" + Configs.getInstance().getExpires());
-//							Thread.sleep((Configs.getInstance().getExpires() - 200) * 1000);
-//						} else {
-//							Thread.sleep(60 * 1000);
-//						}
-//					} catch (InterruptedException e) {
-//						log.debug("", e);
-//					}
-//				}
-//
-//			}
-//		});
-//	}
-
-	private void request() {
-		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+Configs.getInstance().getString("AppId")+"&secret=" + Configs.getInstance().getString("AppSecret");
-		String result = HttpUtils.request(url);
-		log.debug("获取access_token response:" + result);
-		JSONObject jsonObj = (JSONObject) JSON.parse(result);
-		if (jsonObj.getString("errcode") == null) {
-			Configs.getInstance().setAccessToken(jsonObj.getString("access_token"));
-			Configs.getInstance().setExpires(jsonObj.getIntValue("expires_in"));
-		}
-	}
-
 	@Override
 	public List<WeixinUser> getAll() {
 		return weixinUserMapper.getAll();
 	}
 
 	@Override
-	public int addLotteryNumber(String userid) {
-		return weixinUserMapper.addLotteryNumber(userid);
+	public int addLotteryNumber(String openid) {
+		return weixinUserMapper.addLotteryNumber(openid);
 	}
 
-	public int minusLotteryNumber(String userid) {
-		return weixinUserMapper.minusLotteryNumber(userid);
+	public int minusLotteryNumber(String openid) {
+		return weixinUserMapper.minusLotteryNumber(openid);
 	}
 
 	@Override
@@ -82,8 +46,8 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 	}
 
 	@Override
-	public WeixinUser selectByUserid(String userid) {
-		return weixinUserMapper.selectByUserid(userid);
+	public WeixinUser selectByOpenid(String openid) {
+		return weixinUserMapper.selectByOpenid(openid);
 	}
 
 	

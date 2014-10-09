@@ -8,7 +8,7 @@ import u.derma.model.WeixinUser;
 
 
 public interface WeixinPrizeInfoMapper {
-	List<WeixinPrizeInfo> selectByUserid(String userid);
+	List<WeixinPrizeInfo> selectByOpenid(String openid);
 	int insert(WeixinPrizeInfo info);
 	List<WeixinPrizeInfo> getAll();
 }

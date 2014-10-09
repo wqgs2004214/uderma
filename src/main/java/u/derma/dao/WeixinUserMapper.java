@@ -17,21 +17,21 @@ public interface WeixinUserMapper {
      * @param userid
      * @return
      */
-    int addLotteryNumber(String userid);
+    int addLotteryNumber(String openid);
     
     /**
      * 减少指定用户的抽奖数 
      * @param userid
      * @return
      */
-    int minusLotteryNumber(String userid);
+    int minusLotteryNumber(String openid);
     
     /**
      * 通过用户id查询
      * @param userid
      * @return
      */
-    WeixinUser selectByUserid(String userid);
+    WeixinUser selectByOpenid(String openid);
     /**
      * 获取所有用户
      * @return

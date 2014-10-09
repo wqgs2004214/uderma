@@ -9,12 +9,12 @@ public interface WeixinUserServiceI {
 
 	List<WeixinUser> getAll();
 	
-	int addLotteryNumber(String userid);
+	int addLotteryNumber(String openid);
 	
-	int minusLotteryNumber(String userid);
+	int minusLotteryNumber(String openid);
 	
 	int insert(WeixinUser user);
 	
-	WeixinUser selectByUserid(String userid);
+	WeixinUser selectByOpenid(String openid);
 	
 }

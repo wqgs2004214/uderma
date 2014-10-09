@@ -43,6 +43,28 @@
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
+	
+	$("#viewUser").click(function() {
+		$.post("<c:url value="/viewUser" />", $(this).serialize(), function(html) {
+			$("#content").replaceWith(html);
+			//$('html, body').animate({ scrollTop: 0 }, 500);
+			$("#content").fadeIn("slow");
+		});
+		return false;  
+				
+	});
+	
+	$("#prizeUser").click(function() {
+		$.post("<c:url value="/prizeUser" />", $(this).serialize(), function(html) {
+			$("#content").replaceWith(html);
+			//$('html, body').animate({ scrollTop: 0 }, 500);
+			$("#content").fadeIn("slow");
+		});
+		return false;  
+				
+	});
+	
+	
 
 });
     </script>
@@ -72,7 +94,7 @@
 			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">控制台</a> <div class="breadcrumb_divider"></div> <a class="current">微信用户统计</a></article>
+			<article class="breadcrumbs"><a href="#">控制台</a> <div class="breadcrumb_divider"></div> <a class="current">微信用户统计</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 	
@@ -105,8 +127,8 @@
 		 -->
 		<h3>管理</h3>
 		<ul class="toggle">
-			<li class="icn_view_users"><a href="#">查看微信用户</a></li>
-			<li class="icn_security"><a href="#">中奖用户</a></li>
+			<li class="icn_view_users"><a id="viewUser" href="#">查看微信用户</a></li>
+			<li class="icn_security"><a id="prizeUser" href="#">中奖用户</a></li>
 			<li class="icn_jump_back"><a href="<c:url value="/logout" />">退出系统</a></li>
 		</ul>
 		
@@ -144,7 +166,7 @@
 			</div>
 		</article><!-- end of stats article -->
 		
-		<article class="module width_3_quarter">
+		<article id="content" class="module width_3_quarter">
 		<header><h3 class="tabs_involved">中奖用户</h3>
 		<ul class="tabs">
    			<li><a href="#tab1">未领奖</a></li>
