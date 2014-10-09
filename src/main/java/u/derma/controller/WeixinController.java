@@ -66,11 +66,13 @@ public class WeixinController {
 	 * @return
 	 */
 	@RequestMapping(value="home", method= RequestMethod.GET)
-	public String index(HttpSession session) {
+	public String index(HttpSession session, Model model) {
 		Object status = session.getAttribute("status");
 		if (status == null || !StringUtils.equalsIgnoreCase("1", status.toString())) {
 			return "redirect:/login";
 		}
+		List<WeixinPrizeInfo> prizelist = weixinPrizeInfoService.getAll();
+		model.addAttribute("prizelist", prizelist);
 		return "home";
 	}
 	
@@ -181,6 +183,7 @@ public class WeixinController {
 				prizeAlias = goodsList.get(i).getPrizeAlias();
 				WeixinPrizeInfo info = new WeixinPrizeInfo();
 				info.setPrizeGoodsId(goodsList.get(i).getPrizeGoodsId());
+				info.setPrizeGoodsName(goodsList.get(i).getPrizeAlias());
 				info.setPrizeGoodsStatus(1);
 				info.setUserid(userid);
 				//获取用户基本信息

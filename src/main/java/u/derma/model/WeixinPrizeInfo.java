@@ -8,8 +8,10 @@ public class WeixinPrizeInfo {
 	private String winnerNickname;
 	//奖品状态2领取 1未领取
 	private int prizeGoodsStatus;
+	private String prizeGoodsName;
 	private String userid;
 	private Date winningTime;
+	
 	public int getPrizeGoodsId() {
 		return prizeGoodsId;
 	}
@@ -39,6 +41,12 @@ public class WeixinPrizeInfo {
 	}
 	public void setWinningTime(Date winningTime) {
 		this.winningTime = winningTime;
+	}
+	public String getPrizeGoodsName() {
+		return prizeGoodsName;
+	}
+	public void setPrizeGoodsName(String prizeGoodsName) {
+		this.prizeGoodsName = prizeGoodsName;
 	}
 
 

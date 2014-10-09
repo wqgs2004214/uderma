@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -106,7 +107,7 @@
 		<ul class="toggle">
 			<li class="icn_view_users"><a href="#">查看微信用户</a></li>
 			<li class="icn_security"><a href="#">中奖用户</a></li>
-			<li class="icn_jump_back"><a href="#">退出系统</a></li>
+			<li class="icn_jump_back"><a href="<c:url value="/logout" />">退出系统</a></li>
 		</ul>
 		
 		<footer>
@@ -145,6 +146,10 @@
 		
 		<article class="module width_3_quarter">
 		<header><h3 class="tabs_involved">中奖用户</h3>
+		<ul class="tabs">
+   			<li><a href="#tab1">未领奖</a></li>
+    		<li><a href="#tab2">已领奖</a></li>
+		</ul>
 		</header>
 
 		<div class="tab_container">
@@ -159,47 +164,45 @@
     				<th>操作</th> 
 				</tr> 
 			</thead> 
-			<tbody> 
-				
-				<tr>
-   					<td><input type="checkbox"></td> 
-    				<td>Lorem Ipsum Dolor Sit Amet</td> 
-    				<td>Articles</td> 
-    				<td>5th April 2011</td> 
-    				<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Ipsum Lorem Dolor Sit Amet</td> 
-    				<td>Freebies</td> 
-    				<td>6th April 2011</td> 
-   				 	<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
-				</tr>
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Sit Amet Dolor Ipsum</td> 
-    				<td>Tutorials</td> 
-    				<td>10th April 2011</td> 
-    				<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
-				</tr> 
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Articles</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
-				</tr>
-				<tr> 
-   					<td><input type="checkbox"></td> 
-    				<td>Dolor Lorem Amet</td> 
-    				<td>Articles</td> 
-    				<td>16th April 2011</td> 
-   				 	<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
-				</tr>  
+			<tbody>
+				<c:forEach items="${prizelist}" var="prize">
+					<c:if test="${prize.prizeGoodsStatus == 1}">
+						<tr>
+		   					<td><input type="checkbox"></td> 
+		    				<td>${prize.winnerNickname}</td> 
+		    				<td>${prize.prizeGoodsName}</td> 
+		    				<td><fmt:formatDate value="${prize.winningTime}" pattern="yyyy-MM-dd HH:mm" /></td> 
+		    				<td><input type="image" src="<c:url value="/resources/images/icn_edit.png" />" title="Edit"><input type="image" src="<c:url value="/resources/images/icn_trash.png" />" title="Trash"></td> 
+						</tr> 
+					</c:if>
+				</c:forEach>
 			</tbody> 
 			</table>
 			</div><!-- end of #tab1 -->
 			
+			<div id="tab2" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th>用户</th> 
+    				<th>奖品</th> 
+    				<th>中奖时间</th> 
+				</tr> 
+			</thead> 
+			<tbody>
+				<c:forEach items="${prizelist}" var="prize">
+					<c:if test="${prize.prizeGoodsStatus == 2}">
+						<tr> 
+		   					<td>${prize.winnerNickname}</td> 
+	    					<td>${prize.prizeGoodsName}</td> 
+	    					<td><fmt:formatDate value="${prize.winningTime}" pattern="yyyy-MM-dd:HH:mm" /></td> 
+						</tr>
+					</c:if>
+				</c:forEach>
+			</tbody> 
+			</table>
+
+			</div><!-- end of #tab2 -->
 		</div><!-- end of .tab_container -->
 		
 		</article><!-- end of content manager article -->
