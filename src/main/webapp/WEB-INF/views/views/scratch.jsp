@@ -45,11 +45,11 @@
         </div>
         <div class="ui-gcard-tab" style="display:block;">
 	        <ol style="list-style:disc;margin-left:25px;margin-top:10px;margin-right:20px;">
-	        	<li>活动时间：即日-10月10日；</li>
-	            <li>2000只小米手环，由U友北京寄送，中奖者请等小U电话联系；</li>
-	            <li>国内通话，存入您的微信账户，使用U友1709手机号码可立刻领取（3个工作日内到账）；</li>
-	            <li>每位U友用户只能绑定1个微信账号参加活动；</li>
-                <li>本活动最终解释权归属U友北京。</li>
+	        	<li>活动时间：即日-12月31日；</li>
+	            <li>10件冰寒老师超轻UPF40透气专业防晒衣、30本林志青博士著作《你买的保养品是垃圾还是宝》，由优德医美深圳寄送，中奖者等小优电话联系；</li>
+	            <li>50份10元手机话费直接存入您的手机号；</li>
+	            <li>每位粉丝只能绑定1个微信账号参加活动；</li>
+                <li>本活动最终解释权归属优德医美。</li>
 	        </ol>
             <div style="text-align: center"><a href="http://mp.weixin.qq.com/s?__biz=MzA5NTQzMzcxNA==&mid=200306688&idx=1&sn=13d019e05aeeafe65879d8150b81fb2a#rd" class="wx-gcard-btn-followme">点此一键关注U.友公众号</a></div>
         </div>
@@ -77,7 +77,7 @@
     <div class="wx-gcard-up"><img src="<c:url value="/resources/images/wx-gcard-up.png" />" width="100%" /></div>
     <div class="show-box">
         <p class="show-p-h">点击【查看公众号】并关注</p>
-        <p class="show-p-h">小米手环在向你招手了！</p>
+        <!-- <p class="show-p-h">小米手环在向你招手了！</p> -->
     </div>
     <div class="fx-btn"><a href="javascript:void(0)" onclick="javascript:closePopup('wx-gcard-zero')"><img src="<c:url value="/resources/images/wx-gcard-sure.png" />" width="100%" /></a></div>
 </div>
@@ -115,7 +115,7 @@
 <div class="wx-gcard-four">
     <div class="show-box" id="commonInfoBox">
         <p class="show-p-h">提示信息</p>
-        <p>你好~让小U给您跳个舞吧~咳咳~</p>
+        <!-- <p>你好~让小U给您跳个舞吧~咳咳~</p> -->
     </div>
     <div class="fx-btn"><a href="javascript:void(0)" onclick="javascript:closePopup('wx-gcard-four')"><img src="<c:url value="/resources/images/wx-gcard-sure.png"/>" width="100%" /></a></div>
 </div>
@@ -372,7 +372,7 @@ var imgUrl = 'http://wx.aisidi.com:80/asdwx/view/promo/scratch/images/share-icon
 
 var lineLinkPrefix = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx28d1b2def70df706&redirect_uri=http%3A%2F%2Fpush3gtest.smt-online.net%2Fuderma%2FviewShare&response_type=CODE&scope=snsapi_base&state=';
 var lineLinkSuffix = '#wechat_redirect';
-var descContent = "疯狂派送！2000只小米手环，10万份国内通话！";
+var descContent = "疯狂派送喽！";
 var shareTitle = '一大波好福利，不要躲避！';
 
 var appid = 'wx28d1b2def70df706';
