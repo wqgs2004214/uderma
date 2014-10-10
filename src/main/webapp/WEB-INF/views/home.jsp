@@ -47,8 +47,11 @@
 	$("#viewUser").click(function() {
 		$.post("<c:url value="/viewUser" />", $(this).serialize(), function(html) {
 			$("#content").replaceWith(html);
-			//$('html, body').animate({ scrollTop: 0 }, 500);
+			$(".tab_content").hide(); //Hide all content
+			$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+			$(".tab_content:first").show(); //Show first tab content
 			$("#content").fadeIn("slow");
+			//$('html, body').animate({ scrollTop: 0 }, 500);
 		});
 		return false;  
 				
@@ -57,7 +60,9 @@
 	$("#prizeUser").click(function() {
 		$.post("<c:url value="/prizeUser" />", $(this).serialize(), function(html) {
 			$("#content").replaceWith(html);
-			//$('html, body').animate({ scrollTop: 0 }, 500);
+			$(".tab_content").hide(); //Hide all content
+			$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+			$(".tab_content:first").show(); //Show first tab content
 			$("#content").fadeIn("slow");
 		});
 		return false;  

@@ -57,10 +57,15 @@ public class WeixinController {
 		return echostr;
 	}
 	
-//	@RequestMapping(value="welcome", method = RequestMethod.GET)
-//	public String login() {
-//		return "views/login";
-//	}
+	/**
+	 * 进入错误页面
+	 * @return
+	 */
+	@RequestMapping(value= "err" , method = RequestMethod.GET)
+	public String err() {
+		return "err";
+	}
+	
 	/**
 	 * 后台入口
 	 * @return
