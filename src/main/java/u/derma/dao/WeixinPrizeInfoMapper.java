@@ -11,4 +11,5 @@ public interface WeixinPrizeInfoMapper {
 	List<WeixinPrizeInfo> selectByOpenid(String openid);
 	int insert(WeixinPrizeInfo info);
 	List<WeixinPrizeInfo> getAll();
+	List<WeixinPrizeInfo> getRecentPrizeUser();
 }

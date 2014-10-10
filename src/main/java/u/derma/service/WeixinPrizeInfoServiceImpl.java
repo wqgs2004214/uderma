@@ -22,7 +22,10 @@ public class WeixinPrizeInfoServiceImpl implements WeixinPrizeInfoServiceI {
 	public List<WeixinPrizeInfo> getAll() {
 		return weixinPrizeInfoMapper.getAll();
 	}
-	
+	@Override
+	public List<WeixinPrizeInfo> getRecentPrizeUser() {
+		return weixinPrizeInfoMapper.getRecentPrizeUser();
+	}
 
 	
 }

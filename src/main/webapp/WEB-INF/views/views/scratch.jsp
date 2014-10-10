@@ -51,7 +51,6 @@
 	            <li>每位粉丝只能绑定1个微信账号参加活动；</li>
                 <li>本活动最终解释权归属优德医美。</li>
 	        </ol>
-            <div style="text-align: center"><a href="http://mp.weixin.qq.com/s?__biz=MzA5NTQzMzcxNA==&mid=200306688&idx=1&sn=13d019e05aeeafe65879d8150b81fb2a#rd" class="wx-gcard-btn-followme">点此一键关注U.友公众号</a></div>
         </div>
         <div class="ui-gcard-tab">
         	<div id="prizeWinnerList">
@@ -262,7 +261,7 @@ function pickupMyPrize(goodsId){
 $("#prizeWinnerShow").click(function(){
 	//获取获奖用户列表
     var activityId =  Lottery.getActivityId();
-    var url = "/asdwx/promotion/getUserBasicInof.do";
+    var url = "<c:url value="/viewRecentPrizeUser" />";
 	    var param = {
 	    		activityId:activityId
 	    };
@@ -270,17 +269,19 @@ $("#prizeWinnerShow").click(function(){
 	    	var result = JSON.parse(data);
 	    	var msg = '';
 	    	for(var i=0;i<result.length;i++){
-	    		var nickName = result[i].nickName;
+	    		var nickName = result[i].winnerNickname;
+	    		var time = result[i].winningTime;
                 if(nickName==undefined || nickName==''){
                     nickName='匿名用户';
                 }
-	    		var prizeAlias = result[i].prizeAlias;
-	    		var headimgurl = result[i].headimgurl;
+	    		var prizeAlias = result[i].prizeGoodsName;
+	    		
                 msg+=[
                     '<tr>',
-                    '<td><p style="color:#333;"><img src="'+headimgurl+'" height="25px;" width="25px;" /></p></td>',
                     '<td><p style="color:#333;">',nickName.substring(0,2) +"**",'</p></td>',
-                    '<td><p style="color:#333;">',prizeAlias,'</p></td>'].join('');
+                    '<td><p style="color:#333;">',prizeAlias,'</p></td>',
+                    '<td><p style="color:#333;">',time,'</p></td>',
+                    ].join('');
                 msg+=[,
                     '</div>',
                     '</tr>'
@@ -368,7 +369,7 @@ $("#control-button").bind("click",function(){
 });
 
 
-var imgUrl = 'http://wx.aisidi.com:80/asdwx/view/promo/scratch/images/share-icon.jpg';
+var imgUrl = '';
 
 var lineLinkPrefix = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx28d1b2def70df706&redirect_uri=http%3A%2F%2Fpush3gtest.smt-online.net%2Fuderma%2FviewShare&response_type=CODE&scope=snsapi_base&state=';
 var lineLinkSuffix = '#wechat_redirect';

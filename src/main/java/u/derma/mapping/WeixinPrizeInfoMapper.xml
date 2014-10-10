@@ -29,4 +29,9 @@
   <select id="getAll" resultMap="WeixinPrizeInfo">
 	select * from weixin_prize_info
   </select>
+  
+  <!-- 查询最近5条数据 -->
+  <select id="getRecentPrizeUser" resultMap="WeixinPrizeInfo">
+  	select * from weixin_prize_info order by winningTime desc limit 0,5;
+  </select>
 </mapper>
