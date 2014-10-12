@@ -4,9 +4,10 @@
   <resultMap id="WeixinGoods" type="u.derma.model.WeixinGoods" >
     <id column="prizeGoodsId" property="prizeGoodsId" jdbcType="DECIMAL" />
     <result column="prizeAlias" property="prizeAlias" jdbcType="VARCHAR" />
+    <result column="prizeGoodsNumber" property="prizeGoodsNumber" jdbcType="DECIMAL"/>
   </resultMap>
   <sql id="weixingoods_Column_List" >
-    prizeGoodsId, prizeAlias
+    prizeGoodsId, prizeAlias, prizeGoodsNumber
   </sql>
   
   <!-- 通过奖品Id获取指定的奖品对象 -->
@@ -19,9 +20,9 @@
  
   
   <!-- 插入新的奖品 -->
-  <insert id="insert" parameterType="u.derma.model.WeixinGoods" >
-    insert into weixin_goods
-    values (#{prizeGoodsId,jdbcType=DECIMAL},#{prizeAlias,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="u.derma.model.WeixinGoods" useGeneratedKeys="true" keyProperty="prizeGoodsId">
+    insert into weixin_goods(prizeAlias, prizeGoodsNumber)
+    values (#{prizeAlias,jdbcType=VARCHAR}, #{prizeGoodsNumber,jdbcType=DECIMAL})
   </insert>
   
   <!--删除奖品 -->
@@ -32,6 +33,6 @@
   
   
   <select id="getAll" resultMap="WeixinGoods">
-	select prizeGoodsId, prizeAlias from weixin_goods
+	select * from weixin_goods
   </select>
 </mapper>

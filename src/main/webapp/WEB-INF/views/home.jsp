@@ -79,9 +79,51 @@
 				
 	});
 	
+	$("form.post_message").submit(function(){
+		var data = "{ \"prizeAlias\": \"" + $("#prizeAlias").attr("value") +"\", \"prizeGoodsNumber\": \"" + $("#prizeNumber").attr("value") + "\"}";
+		$.ajax({ type: "POST", url: $(this).attr("action"), data: data, contentType: "application/json", dataType: "text", success: function(text) {
+				var result = JSON.parse(text);
+				var html = '';
+				html+=[
+	                    '<tr>',
+	                    '<td>',result.prizeAlias,'</td>',
+	                    '<td>',result.prizeGoodsNumber,'</td>',
+	                    '<td><input id="deleteGoods" type="image" onclick="deleteGoods(this);" src="<c:url value="/resources/images/icn_trash.png" />" value="' , result.prizeGoodsId, '" title="删除奖品"></td>',
+	                    ].join('');
+				html+=[,
+	                    '</tr>'
+	                ].join('');
+				$("#prizeGoodsList").append(html);
+			}, error: function(xhr) {
+				alert(xhr);
+			}
+			});
+		
+		$.post($(this).attr("action"), data, function(html) {
+			alert(html);
+		});
+		return false;
+	});
 	
-
+	
+	
 });
+	var thisObj;
+	function deleteGoods(obj) {
+		thisObj = obj;
+		if(confirm("是否确认删除此奖品？")){
+			
+			$.get("<c:url value="/deleteGoods" />", {"prizeGoodsId":obj.value}, function(html) {
+				if (html == "1") {
+					thisObj.parentElement.parentElement.remove();
+				} else {
+					alert("奖品删除失败!");	
+				}
+				
+			});
+		}
+	}
+	
     </script>
     <script type="text/javascript">
     $(function(){
@@ -244,20 +286,41 @@
 		
 		</article><!-- end of content manager article -->
 		
-		<article class="module width_quarter">
-			<header><h3>发布消息</h3></header>
-			<div class="message_list">
-				<div class="module_content">
-					
-				</div>
+		<article id="prizeContent" class="module width_quarter">
+			<header><h3>奖品设置</h3></header>
+			<div class="tab_container">
+				<div>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead> 
+						<tr> 
+		   					<th>奖品</th> 
+		    				<th>数量</th> 
+		    				<th>操作</th> 
+						</tr> 
+					</thead> 
+					<tbody id="prizeGoodsList">
+							<c:forEach items="${prizeGoodslist}" var="goods">
+								<tr>
+				   					<td>${goods.prizeAlias}</td> 
+				    				<td>${goods.prizeGoodsNumber}</td> 
+				    				<td><input id="deleteGoods" type="image" onclick="deleteGoods(this);" src="<c:url value="/resources/images/icn_trash.png" />" value="${goods.prizeGoodsId}" title="删除奖品"></td> 
+								</tr> 
+							</c:forEach>	
+					</tbody> 
+					</table>
+				</div><!-- end of #tab1 -->
 			</div>
 			<footer>
-				<form class="post_message">
-					<input type="text" value="Message" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
-					<input type="submit" class="btn_post_message" value=""/>
+				<form action="<c:url value="/addPrizeGoods"/>" class="post_message" method="post">
+					<div align="center">
+						<input id="prizeAlias" type="text" value="奖品名" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+						<input id="prizeNumber" type="text" value="奖品数量" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" />
+						<input class ="width_3_quarter" type="submit"  value="新增奖品"/>
+					</div>
 				</form>
 			</footer>
 		</article><!-- end of messages article -->
+		
 		
 		<div class="clear"></div>
 		<div class="spacer"></div>

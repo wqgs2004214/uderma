@@ -2,13 +2,16 @@ package u.derma.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +48,9 @@ public class WeixinController {
 	
 	@Autowired
 	private WeixinPrizeInfoServiceI weixinPrizeInfoService;
+	
+	
+	
 	/**
 	 * 微信回调接口
 	 * 
@@ -78,7 +84,9 @@ public class WeixinController {
 			return "redirect:/login";
 		}
 		List<WeixinPrizeInfo> prizelist = weixinPrizeInfoService.getAll();
+		List<WeixinGoods> prizeGoodsList = weixinGoodsService.getAll();
 		model.addAttribute("prizelist", prizelist);
+		model.addAttribute("prizeGoodslist", prizeGoodsList);
 		return "home";
 	}
 	
@@ -187,6 +195,30 @@ public class WeixinController {
 		return JSON.toJSONStringWithDateFormat(prizelist, "yyyy-MM-dd");
 	}
 	
+	/**
+	 * 删除奖品
+	 * @return
+	 */
+	@RequestMapping(value="deleteGoods", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public @ResponseBody String deleteGoods(@RequestParam String prizeGoodsId) {
+		log.debug("礼品id号:" + prizeGoodsId);
+		return weixinGoodsService.deletePrizeGoodsById(NumberUtils.toInt(prizeGoodsId)) == 1 ? "1":"0";
+	}
+	
+	/**
+	 * 添加奖品
+	 * @param prizeGoods
+	 * @return
+	 */
+	
+	@RequestMapping(value="addPrizeGoods", method = RequestMethod.POST, produces="text/plain;charset=UTF-8", consumes=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String addPrizeGoods(@RequestBody WeixinGoods prizeGoods) {
+		int status = weixinGoodsService.insert(prizeGoods);
+		if (status == 1) {
+			return prizeGoods.toString();
+		}
+		return "";
+	}
 	
 	/**
 	 * 触发抽奖操作.会造成减少用户抽奖次数

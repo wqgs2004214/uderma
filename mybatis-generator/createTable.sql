@@ -29,7 +29,9 @@ create table weixin_prize_info(
 --奖品表
 create table weixin_goods(
   --奖品Id
-  prizeGoodsId INTEGER PRIMARY KEY AUTOINCREMENT,
+  prizeGoodsId INTEGER PRIMARY KEY,
   --奖品名
-  prizeAlias varchar2(36)
+  prizeAlias varchar2(36),
+  --奖品数量
+  prizeGoodsNumber number(8)
 );
