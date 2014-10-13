@@ -18,7 +18,9 @@
 <body>
 <div class="wx-gcard-banner"><img src="<c:url value="/resources/images/wx-gcard-banner.jpg" />" width="100%" /></div>
 <div class="wx-gcard-bg">
-	<img src="<c:url value="/resources/images/wx-gcard-bg.jpg" />" width="100%" />
+	<%-- 
+		<img src="<c:url value="/resources/images/wx-gcard-bg.png" />" width="100%" />
+	 --%>
     <div class="wx-gcard-box">
 
         <div id="gua1" class="ui-gcard-luck" style="overflow:visible;-webkit-transform: translateZ(0);">
@@ -27,7 +29,7 @@
         <div class="ui-gcard-btn">
             <a href="javascript:void(0)" id="control-button" class="wx-gcard-btn">
                 
-                开始刮奖111
+                开始刮奖
             </a>
         </div>
 
