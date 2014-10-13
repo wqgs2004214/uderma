@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import sun.security.krb5.Config;
 import u.derma.dao.WeixinUserMapper;
 import u.derma.model.WeixinUser;
 import u.derma.utils.Configs;

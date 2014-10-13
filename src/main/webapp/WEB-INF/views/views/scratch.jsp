@@ -27,7 +27,7 @@
         <div class="ui-gcard-btn">
             <a href="javascript:void(0)" id="control-button" class="wx-gcard-btn">
                 
-                开始刮奖
+                开始刮奖111
             </a>
         </div>
 

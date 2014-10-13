@@ -61,7 +61,9 @@
                 'color':'#F48B04',
                 'font-weight':'bold',
                 'line-height':$settings.height+'px',
-                'font-size':'20px'
+                'font-size':'20px',
+                'word-break':'break-all',
+            	'overflow':'hidden'
             }).html($settings.text));
 
             elem.append(sp.generate());
