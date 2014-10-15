@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="u.derma.dao.WeixinShareViewHistoryMapper" >
+  <resultMap id="WeixinShareViewHistory" type="u.derma.model.WeixinShareViewHistory" >
+    <result column="shareappid" property="shareappid" jdbcType="VARCHAR" />
+    <result column="viewappid" property="viewappid" jdbcType="VARCHAR"/>
+  </resultMap>
+ 
+  
+  <!-- 查询用户是否有访问过此页面 -->
+  <select id="select" resultMap="WeixinShareViewHistory" parameterType="u.derma.model.WeixinShareViewHistory" >
+    select * from weixin_shareview_history
+    where shareappid = #{shareappid,jdbcType=VARCHAR} and viewappid = #{viewappid,jdbcType=VARCHAR}
+  </select>
+ 
+  
+  <!-- 插入浏览记录 -->
+  <insert id="insert" parameterType="u.derma.model.WeixinShareViewHistory">
+		insert into weixin_shareview_history values(#{shareappid,jdbcType=VARCHAR}, #{viewappid,jdbcType=VARCHAR})
+	</insert>
+  
+</mapper>

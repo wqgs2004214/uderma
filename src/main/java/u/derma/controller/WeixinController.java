@@ -27,6 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import u.derma.model.LotteryEntity;
 import u.derma.model.WeixinGoods;
 import u.derma.model.WeixinPrizeInfo;
+import u.derma.model.WeixinShareViewHistory;
 import u.derma.model.WeixinUser;
 import u.derma.service.WeixinGoodsServiceI;
 import u.derma.service.WeixinPrizeInfoServiceI;
@@ -147,7 +148,7 @@ public class WeixinController {
 				user.setCountry(obj.getString("country"));
 				user.setProvince(obj.getString("province"));
 				user.setCity(obj.getString("city"));
-				user.setLotterynumber(10);
+				user.setLotterynumber(1);
 				user.setCreateDate(new Date());
 				// 记录新的抽奖用户
 				weixinUserService.insert(user);
@@ -297,22 +298,30 @@ public class WeixinController {
 		String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+configs.getString("AppId")+"&secret="+configs.getString("AppSecret")+"&code=" +code+ "&grant_type=authorization_code";
 		String result = HttpUtils.request(getOpenIdUrl);
 		log.debug("分享网页授权返回数据:" + result);
-		String openid = ((JSONObject)JSON.parse(result)).getString("openid");
-		if (openid != null) {
-			WeixinUser user = weixinUserService.selectByOpenid(openid);
+		String viewShareopenid = ((JSONObject)JSON.parse(result)).getString("openid");
+		if (viewShareopenid != null) {
+			WeixinUser user = weixinUserService.selectByOpenid(viewShareopenid);
 			if (user == null) {
 				// 记录新的抽奖用户
 				user = new WeixinUser();
-				user.setOpenid(openid);
-				user.setLotterynumber(10);
+				user.setOpenid(viewShareopenid);
+				user.setLotterynumber(1);
 				weixinUserService.insert(user);
 			}
 			//浏览用户不是分享用户可以增加一次抽奖机会
-			if (!StringUtils.equalsIgnoreCase(state, openid)) {
-				weixinUserService.addLotteryNumber(state);
+			if (!StringUtils.equalsIgnoreCase(state, viewShareopenid)) {
+				WeixinShareViewHistory history = new WeixinShareViewHistory();
+				history.setShareappid(state);
+				history.setViewappid(viewShareopenid);
+				WeixinShareViewHistory h = weixinUserService.select(history);
+				if (h == null) {
+					//如果浏览用户没有浏览过此页面则增加分享的用户一次抽奖机会
+					weixinUserService.insertShareViewHistory(history);
+					weixinUserService.addLotteryNumber(state);
+				}
 			}
 			model.addAttribute("user", user);
-			session.setAttribute("openid", openid);
+			session.setAttribute("openid", viewShareopenid);
 		}
 		return "views/scratch";
 		

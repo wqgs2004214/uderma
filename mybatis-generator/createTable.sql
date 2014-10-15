@@ -35,3 +35,10 @@ create table weixin_goods(
   --奖品数量
   prizeGoodsNumber number(8)
 );
+
+--分享页面浏览记录
+create table weixin_shareview_history(
+	shareappid varchar2(36),
+	viewappid varchar2(36)
+);
+

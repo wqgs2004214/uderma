@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import u.derma.dao.WeixinShareViewHistoryMapper;
 import u.derma.dao.WeixinUserMapper;
+import u.derma.model.WeixinShareViewHistory;
 import u.derma.model.WeixinUser;
 import u.derma.utils.Configs;
 import u.derma.utils.HttpUtils;
@@ -24,6 +26,8 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 	@Autowired
 	private WeixinUserMapper weixinUserMapper;
 	
+	@Autowired
+	private WeixinShareViewHistoryMapper weixinShareViewHistoryMapper;
 
 	@Override
 	public List<WeixinUser> getAll() {
@@ -49,6 +53,17 @@ public class WeixinUserServiceImpl implements WeixinUserServiceI {
 		return weixinUserMapper.selectByOpenid(openid);
 	}
 
+	@Override
+	public WeixinShareViewHistory select(WeixinShareViewHistory history) {
+		return weixinShareViewHistoryMapper.select(history);
+	}
+
+	@Override
+	public int insertShareViewHistory(WeixinShareViewHistory history) {
+		return weixinShareViewHistoryMapper.insert(history);
+	}
+
+	
 	
 
 }

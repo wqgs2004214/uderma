@@ -2,6 +2,7 @@ package u.derma.service;
 
 import java.util.List;
 
+import u.derma.model.WeixinShareViewHistory;
 import u.derma.model.WeixinUser;
 
 
@@ -17,4 +18,7 @@ public interface WeixinUserServiceI {
 	
 	WeixinUser selectByOpenid(String openid);
 	
+	WeixinShareViewHistory select(WeixinShareViewHistory history);
+	
+	int insertShareViewHistory(WeixinShareViewHistory history);
 }
