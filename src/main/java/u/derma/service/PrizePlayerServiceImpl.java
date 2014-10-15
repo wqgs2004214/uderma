@@ -4,10 +4,11 @@ package u.derma.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import u.derma.model.WeixinGoods;
 
-
+@Service("prizePlayerService")
 public class PrizePlayerServiceImpl implements PrizePlayerServiceI {
 	
 	@Autowired
@@ -16,13 +17,12 @@ public class PrizePlayerServiceImpl implements PrizePlayerServiceI {
 	//奖品数组
 	private List<WeixinGoods> prizeArray;
 	
-	public PrizePlayerServiceImpl() {
-		prizeArray = weixinGoodsService.getAll();
-		
-	}
 	
 	@Override
 	public synchronized WeixinGoods play() {
+		if (prizeArray == null) {
+			prizeArray = weixinGoodsService.getAll();
+		}
 		int id = get_round();
 		WeixinGoods resultGoods = null;
 		for (WeixinGoods goods:prizeArray) {
