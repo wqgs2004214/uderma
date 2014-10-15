@@ -4,7 +4,7 @@ public class WeixinGoods {
 
 	private int prizeGoodsId;
 	private String prizeAlias;
-	private String prizeGoodsNumber;
+	private int prizeGoodsNumber;
 
 	public int getPrizeGoodsId() {
 		return prizeGoodsId;
@@ -22,11 +22,13 @@ public class WeixinGoods {
 		this.prizeAlias = prizeAlias;
 	}
 
-	public String getPrizeGoodsNumber() {
+	
+
+	public int getPrizeGoodsNumber() {
 		return prizeGoodsNumber;
 	}
 
-	public void setPrizeGoodsNumber(String prizeGoodsNumber) {
+	public void setPrizeGoodsNumber(int prizeGoodsNumber) {
 		this.prizeGoodsNumber = prizeGoodsNumber;
 	}
 

@@ -1,5 +1,6 @@
 package u.derma.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +30,7 @@ import u.derma.model.WeixinGoods;
 import u.derma.model.WeixinPrizeInfo;
 import u.derma.model.WeixinShareViewHistory;
 import u.derma.model.WeixinUser;
+import u.derma.service.PrizePlayerServiceI;
 import u.derma.service.WeixinGoodsServiceI;
 import u.derma.service.WeixinPrizeInfoServiceI;
 import u.derma.service.WeixinUserServiceI;
@@ -50,7 +52,8 @@ public class WeixinController {
 	@Autowired
 	private WeixinPrizeInfoServiceI weixinPrizeInfoService;
 	
-	
+	@Autowired
+	private PrizePlayerServiceI prizePlayerService;
 	
 	/**
 	 * 微信回调接口
@@ -243,28 +246,20 @@ public class WeixinController {
 		String openid = (String)session.getAttribute("openid");
 		//使用一次抽奖机会
 		weixinUserService.minusLotteryNumber(openid);
-		
-		
-		long randNum = Math.round(Math.random() * 40 +1);
-		List<WeixinGoods> goodsList = weixinGoodsService.getAll();
-		int count = goodsList.size();
 		String prizeAlias = "呃！再刮一次吧~"; 
-		for (int i=0; i<count ;i++) {
-			if (randNum >=(i*10+1) && randNum <= (i*10 + 10)) {
-				//中奖保存用户中奖信息
-				prizeAlias = goodsList.get(i).getPrizeAlias();
-				WeixinPrizeInfo info = new WeixinPrizeInfo();
-				info.setId(UUID.randomUUID().toString());
-				info.setPrizeGoodsName(goodsList.get(i).getPrizeAlias());
-				info.setPrizeGoodsStatus(1);
-				info.setOpenid(openid);
-				//获取用户基本信息
-				WeixinUser user = weixinUserService.selectByOpenid(openid);
-				info.setWinnerNickname(user.getNickname());
-				info.setWinningTime(new Date());
-				weixinPrizeInfoService.insert(info);
-				break;
-			}
+		WeixinGoods goods = prizePlayerService.play();
+		if (goods != null) {
+			prizeAlias = goods.getPrizeAlias();
+			WeixinPrizeInfo info = new WeixinPrizeInfo();
+			info.setId(UUID.randomUUID().toString());
+			info.setPrizeGoodsName(goods.getPrizeAlias());
+			info.setPrizeGoodsStatus(1);
+			info.setOpenid(openid);
+			//获取用户基本信息
+			WeixinUser user = weixinUserService.selectByOpenid(openid);
+			info.setWinnerNickname(user.getNickname());
+			info.setWinningTime(new Date());
+			weixinPrizeInfoService.insert(info);
 		}
 		return "{\"prizeDesc\":\"" + prizeAlias + "\"}";
 	}
