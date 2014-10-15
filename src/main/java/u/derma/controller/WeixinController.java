@@ -284,6 +284,7 @@ public class WeixinController {
 	/**
 	 * 浏览指定用户分享页面,包括分享中奖信息
 	 * 
+	 * @param code 通过code换取访问此地址的openid
 	 * @param state 共享此页面的openid
 	 * @param model
 	 * @param session
@@ -300,14 +301,6 @@ public class WeixinController {
 		log.debug("分享网页授权返回数据:" + result);
 		String viewShareopenid = ((JSONObject)JSON.parse(result)).getString("openid");
 		if (viewShareopenid != null) {
-			WeixinUser user = weixinUserService.selectByOpenid(viewShareopenid);
-			if (user == null) {
-				// 记录新的抽奖用户
-				user = new WeixinUser();
-				user.setOpenid(viewShareopenid);
-				user.setLotterynumber(1);
-				weixinUserService.insert(user);
-			}
 			//浏览用户不是分享用户可以增加一次抽奖机会
 			if (!StringUtils.equalsIgnoreCase(state, viewShareopenid)) {
 				WeixinShareViewHistory history = new WeixinShareViewHistory();
@@ -320,7 +313,6 @@ public class WeixinController {
 					weixinUserService.addLotteryNumber(state);
 				}
 			}
-			model.addAttribute("user", user);
 			session.setAttribute("openid", viewShareopenid);
 		}
 		return "views/scratch";
