@@ -248,7 +248,7 @@ public class WeixinController {
 		weixinUserService.minusLotteryNumber(openid);
 		String prizeAlias = "呃！再刮一次吧~"; 
 		WeixinGoods goods = prizePlayerService.play();
-		if (goods != null) {
+		if (goods != null && !StringUtils.equalsIgnoreCase(goods.getPrizeAlias(), prizeAlias)) {
 			prizeAlias = goods.getPrizeAlias();
 			WeixinPrizeInfo info = new WeixinPrizeInfo();
 			info.setId(UUID.randomUUID().toString());
