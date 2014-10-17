@@ -1,16 +1,21 @@
 package u.derma.service;
 
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
 
 import u.derma.model.WeixinGoods;
 
 @Service("prizePlayerService")
 public class PrizePlayerServiceImpl implements PrizePlayerServiceI {
-	
+	private final Logger log = Logger.getLogger(PrizePlayerServiceImpl.class);
 	@Autowired
 	private WeixinGoodsServiceI weixinGoodsService;
 	
@@ -23,6 +28,8 @@ public class PrizePlayerServiceImpl implements PrizePlayerServiceI {
 		if (prizeArray == null) {
 			prizeArray = weixinGoodsService.getAll();
 		}
+		Collections.shuffle(prizeArray);
+		log.debug("奖品信息:" + JSON.toJSONString(prizeArray));
 		int id = get_round();
 		WeixinGoods resultGoods = null;
 		for (WeixinGoods goods:prizeArray) {

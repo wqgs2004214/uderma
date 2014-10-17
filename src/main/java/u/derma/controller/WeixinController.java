@@ -252,7 +252,7 @@ public class WeixinController {
 			prizeAlias = goods.getPrizeAlias();
 			WeixinPrizeInfo info = new WeixinPrizeInfo();
 			info.setId(UUID.randomUUID().toString());
-			info.setPrizeGoodsName(goods.getPrizeAlias());
+			info.setPrizeGoodsName(prizeAlias);
 			info.setPrizeGoodsStatus(1);
 			info.setOpenid(openid);
 			//获取用户基本信息
@@ -260,6 +260,7 @@ public class WeixinController {
 			info.setWinnerNickname(user.getNickname());
 			info.setWinningTime(new Date());
 			weixinPrizeInfoService.insert(info);
+			log.debug("恭喜你中奖了,中奖信息：" + JSON.toJSONString(info));
 		}
 		return "{\"prizeDesc\":\"" + prizeAlias + "\"}";
 	}
